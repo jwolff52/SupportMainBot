@@ -5,7 +5,8 @@ import traceback
 import requests
 import time
 
-TIM_BETWEEN_PM_CHECKS = 60
+import DatabseHandler
+import Search
 
 try:
     import Config
@@ -40,19 +41,19 @@ def process_comment(comment):
 
         try:
             comment.reply(commentReply)
-            print('Comment made.\n")
+            print('Comment made.\n')
         except praw.errors.Forbidden:
             print('Request from banned subreddit: ' + str(comment.subreddit) + '\n')
         except Exception:
             traceback.print_exc()
 
         try:
-            DatabaseHandler.addComment(comment.id, comment.author.name, comment.subreddit)
+            DatabaseHandler.addComment(comment.id, comment.author.name, comment.subreddit, True)
         except Exception:
             traceback.print_exc()
     else:
         try:
-            DatabaseHandler.addComment(comment.id, comment.author.name, comment.subreddit)
+            DatabaseHandler.addComment(comment.id, comment.author.name, comment.subreddit, False)
         except:
             traceback.print_exc()
 
@@ -65,7 +66,7 @@ def start():
         if not (Search.isValidComment(comment, reddit)):
             try:
                 if not (DatabaseHandler.commentExists(comment.id)):
-                    DatabseHandler.addComment(comment.id, comment.author.name, comment.subreddit)
+                    DatabseHandler.addComment(comment.id, comment.author.name, comment.subreddit, False)
             except:
                 pass
             continue
