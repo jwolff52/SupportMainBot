@@ -73,7 +73,7 @@ def start():
                 pass
             continue
 
-        print('New Comment in: {0} by {1}'.format(comment.subreddit, comment.author.name))
+        print('New Comment in: /r/{0} by /u/{1}: {2}'.format(comment.subreddit, comment.author.name, comment.body[:50]))
         process_comment(comment)
 
 setupReddit()
