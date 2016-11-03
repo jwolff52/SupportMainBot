@@ -37,7 +37,7 @@ def setupReddit():
 def process_comment(comment):
     comment.body = re.sub(r"\`(?s)(.*?)\`", "", comment.body)
 
-    if re.search("((mercy|zen(yatta|ny)?|lucio|sym(metra)?|n?ana)(\n|\t|\^| )*main(\n|\t|\^| )*btw)", comment.body, re.I) is not None:
+    if re.search("((mercy|zen(yatta|ny)?|lucio|sym(metra)?|n?ana|healer|support)(\n|\t|\^| )*main(\n|\t|\^| )*btw)", comment.body, re.I) is not None and re.search("~~((mercy|zen(yatta|ny)?|lucio|sym(metra)?|n?ana|healer|support)(\n|\t|\^| )*main(\n|\t|\^| )*btw)~~", comment.body, re.I) is None:
         commentReply = Config.MESSAGE
         commentReply += "\n\n-----------\n\n"
         commentReply += Config.SIGNATURE
